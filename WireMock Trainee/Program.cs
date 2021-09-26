@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using WireMock.RequestBuilders;
+using WireMock.ResponseBuilders;
+using WireMock.Server;
 
 namespace WireMock_Trainee
 {
@@ -6,7 +10,22 @@ namespace WireMock_Trainee
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var server = WireMockServer.Start();
+
+
+
+            Console.WriteLine($"Server adress is {server.Urls[0]}");
+
+            server.Given(Request.Create().WithPath("/test").UsingGet()).RespondWith(Response.Create().WithBody("Hyi"));
+
+            Console.ReadKey();
+            server.Stop();
+            server.Dispose();
+
+
         }
+
+
+
     }
 }

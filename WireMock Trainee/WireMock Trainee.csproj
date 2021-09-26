@@ -6,4 +6,16 @@
     <RootNamespace>WireMock_Trainee</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ljtxoakk.0q5~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Core" Version="2.40.0" />
+    <PackageReference Include="Mock4Net.Core" Version="1.0.0-beta1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="WireMock.Net" Version="1.4.20" />
+  </ItemGroup>
+
 </Project>
