@@ -16,7 +16,10 @@ namespace WireMock_Trainee
 
             Console.WriteLine($"Server adress is {server.Urls[0]}");
 
-            server.Given(Request.Create().WithPath("/test").UsingGet()).RespondWith(Response.Create().WithBody("Hyi"));
+            server.Given(Request.Create().WithPath("/test")
+                .UsingGet())
+                .RespondWith(Response.Create()
+                .WithBody("Hello from wiremock"));
 
             Console.ReadKey();
             server.Stop();
