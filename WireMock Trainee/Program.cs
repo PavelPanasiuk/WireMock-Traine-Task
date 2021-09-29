@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
+using WireMock.Settings;
 
 namespace WireMock_Trainee
 {
@@ -11,8 +13,6 @@ namespace WireMock_Trainee
         static void Main(string[] args)
         {
             var server = WireMockServer.Start();
-
-
 
             Console.WriteLine($"Server adress is {server.Urls[0]}");
 
@@ -24,11 +24,6 @@ namespace WireMock_Trainee
             Console.ReadKey();
             server.Stop();
             server.Dispose();
-
-
         }
-
-
-
     }
 }

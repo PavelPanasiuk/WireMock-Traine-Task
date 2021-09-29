@@ -12,11 +12,10 @@ namespace NUnitTestWiremock
     [TestFixture]
     public class Tests
     {
-
-        WireMockServer server = WireMockServer.Start();
+        WireMockServer server = WireMockServer.Start("https://www.google.com/");
         string _mockURL;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             server.Given(Request.Create().WithPath("/test")
@@ -24,30 +23,26 @@ namespace NUnitTestWiremock
                 .RespondWith(Response.Create()
                 .WithBodyAsJson("WireMock responce.")
                 .WithStatusCode(HttpStatusCode.OK));
-            _mockURL = server.Urls[0]+"/test";
-
+            _mockURL = server.Urls[0] + "/test";
         }
 
         [Test]
-        public void Test1()
+        public void TestStatusCode()
         {
-
-
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_mockURL);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                        
-
-            using (var streamReader = new StreamReader(response.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-            }
-
-
-            Assert.Pass();
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [TearDown]
+        [Test]
+        public void TestResponseBody()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_mockURL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Assert.AreEqual("\"WireMock responce.\"", new StreamReader(response.GetResponseStream()).ReadToEnd());
+        }
+
+        [OneTimeTearDown]
         public void TearDown()
         {
             server.Stop();
