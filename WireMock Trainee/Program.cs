@@ -13,7 +13,6 @@ namespace WireMock_Trainee
         static void Main(string[] args)
         {
             var server = WireMockServer.Start();
-
             Console.WriteLine($"Server adress is {server.Urls[0]}");
 
             server.Given(Request.Create().WithPath("/test")
@@ -22,8 +21,7 @@ namespace WireMock_Trainee
                 .WithBody("Hello from wiremock"));
 
             Console.ReadKey();
-            server.Stop();
-            server.Dispose();
+            server.Stop();            
         }
     }
 }
