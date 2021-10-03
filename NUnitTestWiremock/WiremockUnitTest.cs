@@ -47,7 +47,7 @@ namespace NUnitTestWiremock
         }
 
         [Test]
-        public async Task IncorrectApiMethodAsync()
+        public async Task IncorrectHttpMethoddAsync()
         {
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage();
@@ -57,6 +57,15 @@ namespace NUnitTestWiremock
             HttpResponseMessage response = await client.SendAsync(request);
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public async Task IsContentTypeActual()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_mockURL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            Assert.AreEqual("application/json", response.Headers.Get(3).ToString());
         }
 
         [OneTimeTearDown]
